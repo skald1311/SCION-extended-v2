@@ -109,6 +109,17 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   #x<-x[incSamp,]
   #y<-y[incSamp]
   
+  ### Extended
+  
+  #print(x)
+  #print("------------")
+  #print(y)
+  #print("-----------------------------------------")
+  
+  write.csv(x, paste0('x_', target.gene.name, '.csv'))  # Dynamically set name so the csv files don't overwrite each other
+  write.csv(y, paste0('y_', target.gene.name, '.csv'))
+  ###
+  
   rf <- randomForest(x = x, y = y, mtry=mtry, ntree=nb.trees, keep.forest=F, importance=TRUE,...)
   
     im <- importance(rf)[,importance.measure]

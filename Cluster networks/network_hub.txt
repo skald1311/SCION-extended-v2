@@ -1,0 +1,2 @@
+Regulator	Interaction	Target	Weight
+AT1G30330	regulates	AT1G58100	1

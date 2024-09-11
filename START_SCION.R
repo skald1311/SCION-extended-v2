@@ -3,7 +3,7 @@
 
 #run all lines in this file to start the SCION RShiny App
 #make sure to change this first line to your working directory where SCION lives
-setwd('/Volumes/prot_proteomics/LabMembers/Natalie/SCION/Code/SCION-dev')
+setwd('C:/Users/hoang/Desktop/SCION-extended-v2')
 
 #check that all packages are installed, and load them using pacman
 if (!require('pacman', character.only=T, quietly=T)) {
