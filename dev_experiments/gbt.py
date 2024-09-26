@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
 
 # Load the data for one of x and y
-x = pd.read_csv('x_AT1G51140.csv', index_col=0)
-y = pd.read_csv('y_AT1G51140.csv', index_col=0).squeeze()
+x = pd.read_csv('x_AT1G01060.csv', index_col=0)
+y = pd.read_csv('y_AT1G01060.csv', index_col=0).squeeze()
 
 # Split the data into training and testing sets
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
@@ -33,6 +33,6 @@ feature_importance_df = pd.DataFrame({
     'Importance': feature_importances
 })
 
-target_gene_name = "y_AT1G51140.csv".split('_')[1].split('.')[0]  # Extract target gene name from file
+target_gene_name = "y_AT1G01060.csv".split('_')[1].split('.')[0]  # Extract target gene name from file
 print(f"Feature Importances for {target_gene_name}:")
 print(feature_importance_df)
