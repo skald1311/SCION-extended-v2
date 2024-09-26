@@ -63,7 +63,8 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=
     imList<-lapply(target.names,function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,...))
   }
   
-  # target.names, imList, weight matrix
+  # write.csv(imList, 'imList.csv')
+  
   
   #return(imList)
   for(nm in names(imList))
@@ -72,6 +73,8 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=
     weight.matrix[nm,tcols] <- imList[[nm]]
   }
   # weight.matrix<-sapply(imList,function(x) x)
+  
+  #write.csv(weight.matrix, "weight_matrix.csv")
   
   mynet <- weight.matrix/num.samples
   if(normalize==TRUE){
@@ -86,7 +89,7 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   target.gene.idx<-which(target.names==target.gene.name)
   if (trace) 
   {
-    #cat(paste("Computing gene ", target.gene.idx, "/", num.targets, "\n", sep=""))
+    # cat(paste("Computing gene ", target.gene.idx, "/", num.targets, "\n", sep=""))
     flush.console()
   }
   #target.gene.name <- target.names[target.gene.idx]
@@ -118,14 +121,14 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   #print(y)
   #print("-----------------------------------------")
   
-  write.csv(x, paste0('x_', target.gene.name, '.csv'))  # Dynamically set name so the csv files don't overwrite each other
-  write.csv(y, paste0('y_', target.gene.name, '.csv'))
+  #write.csv(x, paste0('x_', target.gene.name, '.csv'))  # Dynamically set name so the csv files don't overwrite each other
+  #write.csv(y, paste0('y_', target.gene.name, '.csv'))
   ###
   
   rf <- randomForest(x = x, y = y, mtry=mtry, ntree=nb.trees, keep.forest=F, importance=TRUE,...)
   
     im <- importance(rf)[,importance.measure]
-    
+    # write.csv(im, paste0('im_', target.gene.name, '.csv'))
     #im.names <- names(im)
     return(im)
 }

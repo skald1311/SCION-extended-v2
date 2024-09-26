@@ -33,6 +33,6 @@ feature_importance_df = pd.DataFrame({
     'Importance': feature_importances
 })
 
-target_gene_name = "y_AT1G01060.csv".split('_')[1].split('.')[0]  # Extract target gene name from file
+target_gene_name = "y_AT1G51140.csv".split('_')[1].split('.')[0]  # Extract target gene name from file
 print(f"Feature Importances for {target_gene_name}:")
 print(feature_importance_df)
