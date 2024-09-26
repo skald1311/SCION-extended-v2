@@ -14,6 +14,8 @@ y = pd.read_csv('y_AT1G51140.csv', index_col=0).squeeze()
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 # Train a Gradient Boosting Regressor
+# n_estimators: number of trees
+# Set random state to get reproducible results
 model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
 model.fit(x_train, y_train)
 
@@ -31,6 +33,6 @@ feature_importance_df = pd.DataFrame({
     'Importance': feature_importances
 })
 
-target_gene_name = "y_AT1G01060.csv".split('_')[1].split('.')[0]  # Extract gene name from file
+target_gene_name = "y_AT1G01060.csv".split('_')[1].split('.')[0]  # Extract target gene name from file
 print(f"Feature Importances for {target_gene_name}:")
 print(feature_importance_df)

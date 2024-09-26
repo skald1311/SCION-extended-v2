@@ -63,6 +63,8 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=
     imList<-lapply(target.names,function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,...))
   }
   
+  # target.names, imList, weight matrix
+  
   #return(imList)
   for(nm in names(imList))
   {
