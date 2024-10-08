@@ -69,6 +69,7 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=
   #return(imList)
   for(nm in names(imList))
   {
+    # print(nm)
     tcols<-names(imList[[nm]])
     weight.matrix[nm,tcols] <- imList[[nm]]
   }
@@ -80,6 +81,7 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=
   if(normalize==TRUE){
     mynet <- (mynet-min(mynet,na.rm=TRUE))/(max(mynet,na.rm=TRUE)-min(mynet,na.rm=TRUE))
   }
+  # write.csv(mynet, "mynet.csv")
   return(mynet)
   #    return(list(Weight=weight.matrix,Model=model.matrix,PedictionCorrelations=cor.vec))
 }   
