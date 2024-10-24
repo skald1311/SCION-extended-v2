@@ -141,7 +141,7 @@ SCION <- function(target_genes_file,reg_genes_file,target_data_file,reg_data_fil
         next
       }
       
-      network = RS.Get.Weight.Matrix(t(clustertargetdata),t(clusterregdata),normalize=normalize,num.cores=num.cores)
+      network = RS.Get.Weight.Matrix(t(clustertargetdata),t(clusterregdata), i=i,normalize=normalize,num.cores=num.cores)
       #if network inference failed, move on
       if (is.null(network)){
         next

@@ -1,5 +1,5 @@
 # target.matrix and input.matrix (TFs) have samples as rows and genes as columns
-RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=10000, importance.measure="%IncMSE", seed=NULL, trace=TRUE, normalize=TRUE, num.cores=1, ...)  
+RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, i=NULL, K="sqrt", nb.trees=10000, importance.measure="%IncMSE", seed=NULL, trace=TRUE, normalize=TRUE, num.cores=1, ...)  
 {
   #require(parallel)
   # set random number generator seed if seed is given
@@ -60,7 +60,7 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=
     imList<-parLapply(cl=clst, X=target.names, function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,...))
     stopCluster(cl=clst)
   }else{
-    imList<-lapply(target.names,function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,...))
+    imList<-lapply(target.names,function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,i=i,...))
   }
   
   # write.csv(imList, 'imList.csv')
@@ -86,7 +86,7 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, K="sqrt", nb.trees=
   #    return(list(Weight=weight.matrix,Model=model.matrix,PedictionCorrelations=cor.vec))
 }   
 
-RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,...)
+RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure, i=NULL,...)
 {
   target.gene.idx<-which(target.names==target.gene.name)
   if (trace) 
@@ -122,9 +122,14 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   #print("------------")
   #print(y)
   #print("-----------------------------------------")
+  if (is.null(i)) {
+    write.csv(x, paste0('x_', target.gene.name, '_', 'hub' , '.csv'))  # Dynamically set name so the csv files don't overwrite each other
+    write.csv(y, paste0('y_', target.gene.name, '_', 'hub' , '.csv'))
+  } else {
+    write.csv(x, paste0('x_', target.gene.name, '_', i , '.csv'))  # Dynamically set name so the csv files don't overwrite each other
+    write.csv(y, paste0('y_', target.gene.name, '_', i , '.csv'))
+  }
   
-  #write.csv(x, paste0('x_', target.gene.name, '.csv'))  # Dynamically set name so the csv files don't overwrite each other
-  #write.csv(y, paste0('y_', target.gene.name, '.csv'))
   ###
   
   rf <- randomForest(x = x, y = y, mtry=mtry, ntree=nb.trees, keep.forest=F, importance=TRUE,...)
