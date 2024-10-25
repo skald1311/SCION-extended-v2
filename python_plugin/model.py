@@ -19,8 +19,8 @@ def train_model(x_file, y_file):
 
     # Train the model
 
-    # model = RandomForestRegressor(n_estimators=100, max_depth=None, random_state=42)
-    model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=None, random_state=42)
+    model = RandomForestRegressor(n_estimators=10000, max_depth=None, random_state=42)
+    # model = GradientBoostingRegressor(n_estimators=1000, learning_rate=0.1, max_depth=None, random_state=42)
     
     model.fit(x_train, y_train)
 
