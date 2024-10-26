@@ -14,15 +14,12 @@ def train_model(x_file, y_file):
     x = pd.read_csv(x_file, index_col=0)
     y = pd.read_csv(y_file, index_col=0).squeeze()
 
-    # Split the data into training and testing sets
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-
     # Train the model
 
-    model = RandomForestRegressor(n_estimators=10000, max_depth=None, random_state=42)
-    # model = GradientBoostingRegressor(n_estimators=1000, learning_rate=0.1, max_depth=None, random_state=42)
+    #model = RandomForestRegressor(n_estimators=100, max_depth=None, random_state=42)
+    model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=None, random_state=42)
     
-    model.fit(x_train, y_train)
+    model.fit(x, y)
 
     # Get feature importances
     feature_importances = model.feature_importances_
