@@ -122,13 +122,13 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   #print("------------")
   #print(y)
   #print("-----------------------------------------")
-  if (is.null(i)) {
-    write.csv(x, paste0('x_', target.gene.name, '_', 'hub' , '.csv'))  # Dynamically set name so the csv files don't overwrite each other
-    write.csv(y, paste0('y_', target.gene.name, '_', 'hub' , '.csv'))
-  } else {
-    write.csv(x, paste0('x_', target.gene.name, '_', i , '.csv'))  # Dynamically set name so the csv files don't overwrite each other
-    write.csv(y, paste0('y_', target.gene.name, '_', i , '.csv'))
-  }
+  #if (is.null(i)) {
+  #  write.csv(x, paste0('x_', target.gene.name, '_', 'hub' , '.csv'))  # Dynamically set name so the csv files don't overwrite each other
+  #  write.csv(y, paste0('y_', target.gene.name, '_', 'hub' , '.csv'))
+  #} else {
+  #  write.csv(x, paste0('x_', target.gene.name, '_', i , '.csv'))  # Dynamically set name so the csv files don't overwrite each other
+  #  write.csv(y, paste0('y_', target.gene.name, '_', i , '.csv'))
+  #}
   
   ###
   

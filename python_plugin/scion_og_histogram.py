@@ -12,5 +12,5 @@ plt.xlabel('Edge Weight')
 plt.ylabel('Frequency')
 plt.title('Histogram of Edge Weight')  # Feature Importance == Edge weight
 
-plt.savefig("hist_og_scion.png", dpi=300)  # You can adjust dpi for resolution
+plt.savefig("hist_og_scion_rf_100.png", dpi=300)  # You can adjust dpi for resolution
 plt.show()
