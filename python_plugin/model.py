@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+import math
 
 import glob
 import os
@@ -14,10 +15,21 @@ def train_model(x_file, y_file):
     x = pd.read_csv(x_file, index_col=0)
     y = pd.read_csv(y_file, index_col=0).squeeze()
 
+    # Match parameters with R's randomForest
+    num_inputs = x.shape[1]
+    mtry = round(math.sqrt(num_inputs))  # K == "sqrt"
+
     # Train the model
 
-    #model = RandomForestRegressor(n_estimators=100, max_depth=None, random_state=42)
-    model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=None, random_state=42)
+    model = RandomForestRegressor(n_estimators=10000,
+                                  max_depth=None,           # default of R's randomForest 
+                                  max_features=mtry,        # K = "sqrt"
+                                  n_jobs=1,                 # num.cores = 1
+                                  verbose=1,                # trace = True
+                                  #min_samples_leaf=5,       
+                                  min_samples_split=5,      # nodesize=5 (default of R)
+                                  random_state=2020)
+    #model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=None, random_state=42)
     
     model.fit(x, y)
 
