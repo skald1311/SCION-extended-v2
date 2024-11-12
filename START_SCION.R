@@ -23,6 +23,7 @@ p_load(cluster)
 p_load(doParallel)
 
 source("SCION.R")
+source("SCION_hub.R")
 source('dtw_clustering.R')
 source('ica_clustering.R')
 source('kmeans_clustering.R')

@@ -86,7 +86,7 @@ server <- function(input, output) {
   options(shiny.maxRequestSize=100*1024^2) 
   observe({
     if (input$action > 0){
-      SCION(target_genes_file=input$file3$datapath,reg_genes_file=input$file4$datapath,
+      SCION_hub(target_genes_file=input$file3$datapath,reg_genes_file=input$file4$datapath,
             target_data_file=input$file$datapath,reg_data_file=input$file2$datapath, weightthreshold=input$weight,normalize_edges=input$radio3,
             is_clustering=input$radio, clusters_file=input$file6$datapath, hubs=input$radio2,
             clustering_data_file=input$file5$datapath,threshold=input$num,num.cores=input$num2,working_dir=input$text)
