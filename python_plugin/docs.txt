@@ -1,3 +1,0 @@
-model.py 
--> now we have the hubs, copy the all_hub_genes.csv to SCION directory, then run SCION with SCION_hub 
--> run linking.py to link all the clusters and hub networks
