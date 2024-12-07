@@ -41,13 +41,13 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, i=NULL, K="sqrt", n
   } else {
     stop("Parameter K must be \"sqrt\", or \"all\", or an integer")
   }
-  # if (trace) {
-  #   cat(paste("Starting RF computations with ", nb.trees,
-  #             " trees/target gene,\nand ", mtry,
-  #             " candidate input genes/tree node\n",
-  #             sep=""))
-  #   flush.console()
-  # }
+  if (trace) {
+    cat(paste("Starting RF computations with ", nb.trees,
+             " trees/target gene,\nand ", mtry,
+             " candidate input genes/tree node\n",
+              sep=""))
+    flush.console()
+  }
   
   # compute importances for every target gene
   names(target.names)<-target.names
@@ -60,7 +60,7 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, i=NULL, K="sqrt", n
     imList<-parLapply(cl=clst, X=target.names, function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,...))
     stopCluster(cl=clst)
   }else{
-    imList<-lapply(target.names,function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,i=i,...))
+    imList<-lapply(target.names, function(x) RSGWM2(x,num.targets,target.names,input.matrix,target.matrix,trace,mtry,nb.trees,importance.measure,i=i,...))
   }
   
   # write.csv(imList, 'imList.csv')
@@ -78,6 +78,7 @@ RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, i=NULL, K="sqrt", n
   #write.csv(weight.matrix, "weight_matrix.csv")
   
   mynet <- weight.matrix/num.samples
+  # write.csv(mynet, "mynet.csv")
   if(normalize==TRUE){
     mynet <- (mynet-min(mynet,na.rm=TRUE))/(max(mynet,na.rm=TRUE)-min(mynet,na.rm=TRUE))
   }
@@ -92,6 +93,7 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   if (trace) 
   {
     # cat(paste("Computing gene ", target.gene.idx, "/", num.targets, "\n", sep=""))
+    cat(paste("Computing gene ", target.gene.name, "\n", sep=""))
     flush.console()
   }
   #target.gene.name <- target.names[target.gene.idx]

@@ -14,27 +14,31 @@ def train_model(x_file, y_file):
     x = pd.read_csv(x_file, index_col=0)
     y = pd.read_csv(y_file, index_col=0).squeeze()
 
+    # Trace
+    target_gene_name = os.path.basename(y_file).split('_')[1].split('.')[0]
+    print("Computing gene", target_gene_name)
+
     # Match parameters with R's randomForest
     num_inputs = x.shape[1]
     mtry = round(math.sqrt(num_inputs))  # K == "sqrt"
 
     # Train the model
 
-    # model = RandomForestRegressor(n_estimators=10000,
-    #                               max_depth=None,           # default of R's randomForest 
-    #                               max_features=mtry,        # K = "sqrt"
-    #                               n_jobs=1,                 # num.cores = 1
-    #                               verbose=1,                # trace = True      
-    #                               min_samples_split=5,      # nodesize=5 (default of R)
-    #                               random_state=2020)
+    model = RandomForestRegressor(n_estimators=100,
+                                  max_depth=None,           # default of R's randomForest 
+                                  max_features=mtry,        # K = "sqrt"
+                                  n_jobs=-1,                 # num.cores = 1
+                                  verbose=0,                # trace = True      
+                                  min_samples_split=5,      # nodesize=5 (default of R)
+                                  random_state=2020)
 
-    model = GradientBoostingRegressor(n_estimators=100,
-                                      learning_rate=0.1, # 0.001 for 10k, 0.01 for 1k, 0.1 for 100
-                                      max_features=mtry,
-                                      verbose=1,
-                                      max_depth=None,
-                                      min_samples_split=5,
-                                      random_state=2020)
+    # model = GradientBoostingRegressor(n_estimators=100,
+    #                                   learning_rate=0.1, # 0.001 for 10k, 0.01 for 1k, 0.1 for 100
+    #                                   max_features=mtry,
+    #                                   verbose=1,
+    #                                   max_depth=None,
+    #                                   min_samples_split=5,
+    #                                   random_state=2020)
     
     model.fit(x, y)
 
@@ -46,9 +50,9 @@ def train_model(x_file, y_file):
     })
 
     # Extract target gene name from the file name
-    target_gene_name = os.path.basename(y_file).split('_')[1].split('.')[0]
-    print(f"Feature Importances for {target_gene_name}:")
-    print(feature_importance_df)
+    # target_gene_name = os.path.basename(y_file).split('_')[1].split('.')[0]
+    # print(f"Feature Importances for {target_gene_name}:")
+    # print(feature_importance_df)
 
     # Return the trained model and the feature importance DataFrame
     return model, feature_importance_df
@@ -97,7 +101,7 @@ def main():
             'model': model,
             'feature_importance': feature_importance_df
         })
-        print("-----------------------------------")
+        # print("-----------------------------------")
 
     # Write separate output files for each cluster
     for cluster_number, results in cluster_results.items():
@@ -118,7 +122,7 @@ def main():
         # Export the feature importances for the current cluster to a separate CSV file
         output_file = os.path.join(output_dir, f"imList_cluster_{cluster_number}.csv")
         imList.to_csv(output_file, index=False)
-        print(f"Exported feature importances for cluster {cluster_number} to {output_file}")
+        # print(f"Exported feature importances for cluster {cluster_number} to {output_file}")
 
         # find hub genes
         hubs = find_hub_genes(imList)
