@@ -1,2 +1,3 @@
 Regulator	Interaction	Target	Weight
-AT4G36780	regulates	AT1G04990	1
+AT1G43700	regulates	AT2G36080	1
+AT5G06110	regulates	AT2G36080	0.848122377736309

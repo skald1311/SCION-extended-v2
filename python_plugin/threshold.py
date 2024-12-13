@@ -21,9 +21,9 @@ def apply_threshold(input_file, output_file, threshold):
     print(f"Filtered data saved to {output_file}")
 
 def main():
-    input_file = "output/raw_weight/no_threshold/gbt/final_gbt_100.csv"
-    output_file = "output/raw_weight/threshold/gbt/threshold_gbt_100.csv"
-    threshold = 0.33
+    input_file = "output/raw_weight/no_threshold/gbt/final_gbt_10000.csv"
+    output_file = "output/raw_weight/threshold_08/gbt/threshold_gbt_10000.csv"
+    threshold = 0.8
 
     apply_threshold(input_file, output_file, threshold)
 

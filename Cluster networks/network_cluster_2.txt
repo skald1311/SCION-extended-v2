@@ -1,2 +1,3 @@
 Regulator	Interaction	Target	Weight
-AT1G58100	regulates	AT2G26580	1
+AT5G06110	regulates	AT1G70700	0.864116707790367
+AT5G06110	regulates	AT3G51450	1

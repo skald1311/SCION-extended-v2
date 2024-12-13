@@ -1,5 +1,5 @@
 # target.matrix and input.matrix (TFs) have samples as rows and genes as columns
-RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, i=NULL, K="sqrt", nb.trees=10000, importance.measure="%IncMSE", seed=NULL, trace=TRUE, normalize=TRUE, num.cores=1, ...)  
+RS.Get.Weight.Matrix<- function(target.matrix, input.matrix, i=NULL, K="sqrt", nb.trees=100, importance.measure="%IncMSE", seed=NULL, trace=TRUE, normalize=TRUE, num.cores=1, ...)  
 {
   #require(parallel)
   # set random number generator seed if seed is given
@@ -112,8 +112,10 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   #   temp.input.matrix<-input.matrix[,-rmind]
   #   #print(paste("Removing:",target.gene.name,"fom Input | Index Number:",rmind," |  New Dimensions:",dim(temp.input.matrix)[1],"X",dim(temp.input.matrix)[2]))
   # }
+  
   x <- temp.input.matrix
   y <- target.matrix[,target.gene.name]
+  
   #incSamp<-names(y)[which(!is.na(y))]
   #x<-x[incSamp,]
   #y<-y[incSamp]
@@ -135,8 +137,9 @@ RSGWM2<-function(target.gene.name,num.targets,target.names,input.matrix,target.m
   ###
   
   rf <- randomForest(x = x, y = y, mtry=mtry, ntree=nb.trees, keep.forest=F, importance=TRUE,...)
+  #rf <- rfImpute(x = x, y = y, mtry=mtry, ntree=nb.trees, keep.forest=F, importance=TRUE,...)
   
-    im <- importance(rf)[,importance.measure]
+    im <- importance(rf, scale=FALSE)[,importance.measure]
     # write.csv(im, paste0('im_', target.gene.name, '.csv'))
     #im.names <- names(im)
     return(im)
