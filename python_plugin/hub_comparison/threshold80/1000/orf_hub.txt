@@ -1,0 +1,2 @@
+Regulator	Interaction	Target	Weight
+AT4G36730	regulates	AT1G01260	1
